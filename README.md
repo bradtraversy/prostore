@@ -138,14 +138,13 @@ npm start
 npm run export
 ```
 
+export DATABASE_URL
+DATABASE_URL="postgresql://devtedsuser:devtedspass@db:5432/prostoredb"
+npx prisma migrate dev
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Prisma Studio
 
-To open Prisma Studio, run the following command:
-
-```bash
-npx prisma studio
 ```
 
 ## Seed Database
@@ -153,8 +152,18 @@ npx prisma studio
 To seed the database with sample data, run the following command:
 
 ```bash
+
+ENCRYPTION_KEY="test";
+export ENCRYPTION_KEY;
 npx tsx ./db/seed
 ```
+
+## Prisma Studio
+
+To open Prisma Studio, run the following command:
+
+```bash
+npx prisma studio
 
 ## Demo
 

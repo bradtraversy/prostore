@@ -2,8 +2,9 @@ NEXT_PUBLIC_APP_NAME = "Prostore"
 NEXT_PUBLIC_APP_DESCRIPTION = "A modern ecommerce store built with Next.js"
 NEXT_PUBLIC_SERVER_URL = "http://localhost:3000"
 
+ENCRYPTION_KEY="my encrypt"
 
-DATABASE_URL="postgresql://devtedsuser:devtedspass@bd:5432/prostoredb"
+DATABASE_URL="postgresql://devtedsuser:devtedspass@db:5432/prostoredb"
 
 NEXTAUTH_SECRET="sSMx5DpKJ0Az21c6H+kSnVDeU+nSr6czVFE7DA9JJzw="
 NEXTAUTH_URL=http://localhost:3000
