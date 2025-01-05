@@ -29,6 +29,10 @@ This project is from my **Next.js Ecommerce course**
 
 ## Usage
 
+sudo apt update
+sudo apt install npm
+
+
 ### Install Dependencies
 
 ```bash
