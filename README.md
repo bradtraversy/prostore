@@ -45,6 +45,9 @@ Note: Some dependencies may have not yet been upadated to support React 19. If y
 npm install --legacy-peer-deps
 ```
 
+## docker config & pgAdmin config
+https://github.com/devteds/devcontainers-for-developers-rails-multi-container-local-setup/tree/main/.devcontainer
+
 ### Environment Variables
 
 Rename the `.example-env` file to `.env` and add the following
@@ -56,7 +59,8 @@ Sign up for a free PostgreSQL database through Vercel. Log into Vercel and click
 **Example:**
 
 ```
-DATABASE_URL="postgresql://username:password@host:port/dbname"
+DATABASE_URL="postgresql://username:password@host:port/prostoredb"
+DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:5432/prostoredb"
 ```
 
 #### Next Auth Secret
@@ -70,7 +74,7 @@ openssl rand -base64 32
 **Example:**
 
 ```
-NEXTAUTH_SECRET="xmVpackzg9sdkEPzJsdGse3dskUY+4ni2quxvoK6Go="
+NEXTAUTH_SECRET="sSMx5DpKJ0Az21c6H+kSnVDeU+nSr6czVFE7DA9JJzw="
 ```
 
 #### PayPal Client ID and Secret
