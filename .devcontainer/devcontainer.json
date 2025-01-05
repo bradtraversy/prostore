@@ -1,0 +1,23 @@
+{
+    "name": "PostgreSQL & pgAdmin",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace", 
+    "forwardPorts": [
+      5050
+    ],  
+    "features": {
+      "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },  
+    "customizations": {    
+      "vscode": {
+        "extensions": [
+          "ms-azuretools.vscode-docker"
+        ]
+      }
+    },
+    "mounts": [
+      "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ],
+    "remoteUser": "root"
+  }
