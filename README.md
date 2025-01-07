@@ -27,10 +27,13 @@ This project is from my **Next.js Ecommerce course**
 - Dark/Light mode
 - Much more
 
-## Usage
+## Install npm
 
 sudo apt update
 sudo apt install npm
+
+sudo apt-get install iputils-ping
+
 
 
 ### Install Dependencies
@@ -48,6 +51,11 @@ npm install --legacy-peer-deps
 ## docker config & pgAdmin config
 https://github.com/devteds/devcontainers-for-developers-rails-multi-container-local-setup/tree/main/.devcontainer
 
+
+http://127.0.0.1:5050/browser/
+localhost : db 
+
+
 ### Environment Variables
 
 Rename the `.example-env` file to `.env` and add the following
@@ -61,6 +69,7 @@ Sign up for a free PostgreSQL database through Vercel. Log into Vercel and click
 ```
 DATABASE_URL="postgresql://username:password@host:port/prostoredb"
 DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:5432/prostoredb"
+DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:6432/demodb"
 ```
 
 #### Next Auth Secret
@@ -121,7 +130,61 @@ Sign up for an account at https://resend.io/ and get the API key.
 RESEND_API_KEY="re_ZnhUfrjR_QD2cDqdee3iYCrkfvPYFCYiXm"
 ```
 
+### setup database
+DATABASE_URL="postgresql://devtedsuser:devtedspass@7a90a2120e3c:5432/demodb"
+ENCRYPTION_KEY="test"
+export DATABASE_URL
+export ENCRYPTION_KEY
+npx prisma generate
+npx prisma migrate dev
+npx tsx ./db/seed
+
 ### Run
+sudo apt install pgbouncer
+
+
+
+export DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:6432/demodb"
+ 
+
+# add "[databases]
+# mydb = host=7a90a2120e3c port=5432 dbname=demodb user=devtedsuser password=devtedspass
+
+# vi /etc/pgbouncer/pgbouncer.ini
+# [databases]
+# demodb = host=7a90a2120e3c port=5432 dbname=demodb
+# ;; disable, allow, require, verify-ca, verify-full
+# client_tls_sslmode = disable
+# log_connections = 1
+# log_disconnections = 1
+# log_pooler_errors = 1
+# verbose=3
+# ;; IP address or * which means all IPs
+# listen_addr = localhost
+# listen_port = 6432 
+
+
+export PGPASSWORD='devtedspass'
+psql -h 7a90a2120e3c -p 5432 -U devtedsuser -d demodb -c 'SELECT * FROM public."User"'
+
+service pgbouncer stop
+service pgbouncer start
+
+
+echo '"devtedsuser" "devtedspass"' > /etc/pgbouncer/userlist.txt
+psql -h localhost -p 6432 -U "devtedsuser" -d "demodb" -c 'SELECT * FROM public."User"'
+cat /var/log/postgresql/pgbouncer.log
+
+DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:6432/mydb"
+ENCRYPTION_KEY="test"
+export DATABASE_URL
+npx prisma generate
+npx prisma migrate dev
+npx tsx ./db/seed
+
+NEXTAUTH_SECRET="sSMx5DpKJ0Az21c6H+kSnVDeU+nSr6czVFE7DA9JJzw="
+export NEXTAUTH_SECRET
+
 
 ```bash
 
@@ -138,9 +201,7 @@ npm start
 npm run export
 ```
 
-export DATABASE_URL
-DATABASE_URL="postgresql://devtedsuser:devtedspass@db:5432/prostoredb"
-npx prisma migrate dev
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -153,9 +214,11 @@ To seed the database with sample data, run the following command:
 
 ```bash
 
-ENCRYPTION_KEY="test";
-export ENCRYPTION_KEY;
+
+
+export DATABASE_URL
 npx tsx ./db/seed
+
 ```
 
 ## Prisma Studio
