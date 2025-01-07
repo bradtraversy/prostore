@@ -11,9 +11,13 @@ neonConfig.webSocketConstructor = ws;
 
 
 // Set the WebSocket proxy to work with the local instance
-//neonConfig.wsProxy = (host) => `${host}:5432/v1`;
+neonConfig.wsProxy = `prostore-pg_proxy-1:5433/v1`;
 // Disable all authentication and encryption
-neonConfig.useSecureWebSocket = false;
+  // Disable all authentication and encryption
+  neonConfig.useSecureWebSocket = false;
+  neonConfig.pipelineTLS = false;
+  neonConfig.pipelineConnect = false;
+
 
 
 // Creates a new connection pool using the provided connection string, allowing multiple concurrent connections.
@@ -22,10 +26,10 @@ neonConfig.useSecureWebSocket = false;
 const pool = new Pool({
     user: 'devtedsuser',         // Database user
     password: 'devtedspass',     // Password for the database user
-    host: '7a90a2120e3c',        // Host where the PostgreSQL instance is running
-    database: 'demodb',      // Database name
+    host: 'postgres',        // Host where the PostgreSQL instance is running
+    database: 'postgres',      // Database name
   
-    port: 5432,                  // Default port for PostgreSQL
+    //port: 5432,                  // Default port for PostgreSQL
     ssl: false,                  // Disable SSL for local development
   });
 

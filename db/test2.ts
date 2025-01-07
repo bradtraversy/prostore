@@ -1,4 +1,3 @@
-
 import { Pool, neonConfig } from '@neondatabase/serverless';
 import { PrismaNeon } from '@prisma/adapter-neon';
 import { PrismaClient } from '@prisma/client';
@@ -8,19 +7,18 @@ import ws from 'ws';
 neonConfig.webSocketConstructor = ws;
 
 
+// prostore-pg_proxy-1 = 172.18.0.6
+neonConfig.wsProxy =  `prostore-pg_proxy-1:5432/v1`;
+// Disable all authentication and encryption
+neonConfig.useSecureWebSocket = false;
+neonConfig.pipelineTLS = false;
+neonConfig.pipelineConnect = false;
+const connectionString = `${process.env.DATABASE_URL}`;
 
-// Database connection details
-const pool = new Pool({
-  user: 'devtedsuser',         // Database user
-  password: 'devtedspass',     // Password for the database user
-  host: 'localhost',        // Host where the PostgreSQL instance is running
-  database: 'demodb',      // Database name
+// Creates a new connection pool using the provided connection string, allowing multiple concurrent connections.
+const pool = new Pool({ connectionString });
 
-  port: 6432,                  // Default port for PostgreSQL
-  ssl: false,                  // Disable SSL for local development
-});
-
-// Instantiates the Prisma adapter using the Neon connection pool
+// Instantiates the Prisma adapter using the Neon connection pool to handle the connection between Prisma and Neon.
 const adapter = new PrismaNeon(pool);
 
 // Creates an instance of PrismaClient with the custom adapter

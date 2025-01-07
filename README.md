@@ -34,12 +34,13 @@ https://gal.hagever.com/posts/running-vercel-postgres-locally
 
 ## Install npm
 
-<sudo apt update
+sudo apt update
 sudo apt install npm
 
 sudo apt-get install iputils-ping
 
-ping ee770f230718
+pinga9c52ed4ee35
+
 
 
 
@@ -138,7 +139,7 @@ RESEND_API_KEY="re_ZnhUfrjR_QD2cDqdee3iYCrkfvPYFCYiXm"
 ```
 
 ### setup database
-DATABASE_URL="postgresql://devtedsuser:devtedspass@ee770f230718:5432/demodb"
+DATABASE_URL="postgresql://devtedsuser:devtedspass@a9c52ed4ee35:5432/demodb"
 ENCRYPTION_KEY="test"
 export DATABASE_URL
 export ENCRYPTION_KEY
@@ -155,11 +156,11 @@ export DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:6432/demodb"
  
 
 # add "[databases]
-# mydb = host=ee770f230718 port=5432 dbname=demodb user=devtedsuser password=devtedspass
+# mydb = host=a9c52ed4ee35 port=5432 dbname=demodb user=devtedsuser password=devtedspass
 
 # vi /etc/pgbouncer/pgbouncer.ini
 # [databases]
-# demodb = host=ee770f230718 port=5432 dbname=demodb
+# demodb = host=a9c52ed4ee35 port=5432 dbname=demodb
 # ;; disable, allow, require, verify-ca, verify-full
 # client_tls_sslmode = disable
 # log_connections = 1
@@ -172,7 +173,7 @@ export DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:6432/demodb"
 
 
 export PGPASSWORD='devtedspass'
-psql -h ee770f230718 -p 5432 -U devtedsuser -d demodb -c 'SELECT * FROM public."User"'
+psql -h a9c52ed4ee35 -p 5432 -U devtedsuser -d demodb -c 'SELECT * FROM public."User"'
 
 service pgbouncer stop
 service pgbouncer start
@@ -184,7 +185,7 @@ cat /var/log/postgresql/pgbouncer.log
 
 
 export ENCRYPTION_KEY="test"
-export DATABASE_URL="postgresql://postgres:postgres@ee770f230718:5433/postgres"
+export DATABASE_URL="postgres://postgres:postgres@a9c52ed4ee35:5432/postgres"
 npx prisma generate
 npx prisma migrate dev
 npx tsx ./db/seed
