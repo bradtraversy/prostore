@@ -37,6 +37,15 @@ services:
     # - ./pgdata:/var/lib/postgresql/data
       # host    all             all             0.0.0.0/0               trust
 
+  pg_proxy:
+    image: ghcr.io/neondatabase/wsproxy:latest
+    environment:
+      APPEND_PORT: "postgres:5432"
+      ALLOW_ADDR_REGEX: ".*"
+      LOG_TRAFFIC: "true"
+    ports:
+      - "5433:80"
+
 volumes:
   pgadmin-data:
   pg-data:

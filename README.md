@@ -9,6 +9,11 @@ This project is from my **Next.js Ecommerce course**
 - Traversy Media: https://www.traversymedia.com/nextjs-ecommerce
 - Udemy: https://www.udemy.com/course/nextjs-ecommerce-course
 
+
+https://gal.hagever.com/posts/running-vercel-postgres-locally
+
+
+
 ## Features
 
 - Next Auth authentication
