@@ -37,14 +37,28 @@ services:
     # - ./pgdata:/var/lib/postgresql/data
       # host    all             all             0.0.0.0/0               trust
 
+  postgres:
+    image: "postgres:15.2-alpine"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+      
   pg_proxy:
     image: ghcr.io/neondatabase/wsproxy:latest
     environment:
       APPEND_PORT: "postgres:5432"
       ALLOW_ADDR_REGEX: ".*"
       LOG_TRAFFIC: "true"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     ports:
       - "5433:80"
+    depends_on:
+      - postgres
 
 volumes:
   pgadmin-data:
