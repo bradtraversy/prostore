@@ -8,12 +8,15 @@ neonConfig.webSocketConstructor = ws;
 
 
 // prostore-pg_proxy-1 = 172.18.0.6
-neonConfig.wsProxy =  `prostore-pg_proxy-1:5432/v1`;
+//neonConfig.wsProxy =  `prostore-pg_proxy-1:80/v1`;
 // Disable all authentication and encryption
 neonConfig.useSecureWebSocket = false;
-neonConfig.pipelineTLS = false;
-neonConfig.pipelineConnect = false;
+//neonConfig.pipelineTLS = false;
+//neonConfig.pipelineConnect = false;
 const connectionString = `${process.env.DATABASE_URL}`;
+
+console.log("dddd");
+console.log(`${process.env.DATABASE_URL}`);
 
 // Creates a new connection pool using the provided connection string, allowing multiple concurrent connections.
 const pool = new Pool({ connectionString });
@@ -29,6 +32,7 @@ async function main() {
     // Test database connection
     await prisma.$connect();
     console.log('Connected to the database successfully.');
+    console.log(`${process.env.DATABASE_URL}`);
   } catch (error) {
     console.error('Error connecting to the database:', error);
   }

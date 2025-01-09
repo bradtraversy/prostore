@@ -11,7 +11,7 @@ neonConfig.webSocketConstructor = ws;
 
 
 // Set the WebSocket proxy to work with the local instance
-neonConfig.wsProxy = `prostore-pg_proxy-1:5433/v1`;
+neonConfig.wsProxy = `prostore-pg_proxy-1:80/v1`;
 // Disable all authentication and encryption
   // Disable all authentication and encryption
   neonConfig.useSecureWebSocket = false;
