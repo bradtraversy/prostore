@@ -35,11 +35,12 @@ https://gal.hagever.com/posts/running-vercel-postgres-locally
 ## Install npm
 
 sudo apt update
-sudo apt install npm
 
-sudo apt-get install iputils-ping
+sudo apt install npm -y 
 
-pinga9c52ed4ee35
+sudo apt-get install iputils-ping -y 
+
+pinga 9c52ed4ee35
 
 
 

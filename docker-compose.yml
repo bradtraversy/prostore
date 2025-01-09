@@ -9,6 +9,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4:8.9
     restart: always
+    container_name: "pgadmin"
     environment:
       PGADMIN_DEFAULT_EMAIL: devteds@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: devteds      
