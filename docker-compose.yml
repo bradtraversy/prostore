@@ -1,6 +1,7 @@
 services:
 
   app:
+    container_name: "app_srv"
     build: .
     command: tail -f /dev/null 
     volumes:
@@ -9,7 +10,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4:8.9
     restart: always
-    container_name: "pgadmin"
+    container_name: "pgadmin_srv"
     environment:
       PGADMIN_DEFAULT_EMAIL: devteds@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: devteds      
@@ -25,7 +26,7 @@ services:
   db:
     image: postgres:13.18
     restart: always      
-    container_name: "postgredb"    
+    container_name: "postgredb_srv"    
     environment: 
       POSTGRES_USER: devtedsuser
       POSTGRES_PASSWORD: devtedspass
@@ -41,6 +42,7 @@ services:
 
   postgres:
     image: "postgres:15.2-alpine"
+    container_name: "postgredb2_srv"    
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -50,6 +52,7 @@ services:
       
   pg_proxy:
     image: ghcr.io/neondatabase/wsproxy:latest
+    container_name: "pgproxy_srv"  
     environment:
       APPEND_PORT: "postgres:5432"
       ALLOW_ADDR_REGEX: ".*"

@@ -33,7 +33,7 @@ https://gal.hagever.com/posts/running-vercel-postgres-locally
 - Much more
 
 ## Install npm
-
+```bash
 sudo apt update
 
 sudo apt install npm -y 
@@ -41,25 +41,29 @@ sudo apt install npm -y
 sudo apt-get install iputils-ping -y 
 
 pinga 9c52ed4ee35
-
+```
 
 
 
 ### Install Dependencies
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 Note: Some dependencies may have not yet been upadated to support React 19. If you get any errors about depencency compatability, run the following:
 
 ```bash
-npm install --legacy-peer-deps
+npm install 
 ```
 
 ## docker config & pgAdmin config
-https://github.com/devteds/devcontainers-for-developers-rails-multi-container-local-setup/tree/main/.devcontainer
+```bash
+https://medium.com/@marvinjungre/get-postgresql-and-pgadmin-4-up-and-running-with-docker-4a8d81048aea
+```
 
+
+npm install 
 
 http://127.0.0.1:5050/browser/
 localhost : db 
