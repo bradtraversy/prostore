@@ -5,7 +5,7 @@ WORKDIR /workspace
 
 
 # Use a base image with Python
-FROM postgres:15.2-alpine
+# FROM postgres:15.2-alpine
 
 RUN mkdir /workspace
 WORKDIR /workspace
