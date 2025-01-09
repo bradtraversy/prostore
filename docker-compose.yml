@@ -24,7 +24,8 @@ services:
 
   db:
     image: postgres:13.18
-    restart: always          
+    restart: always      
+    container_name: "postgredb"    
     environment: 
       POSTGRES_USER: devtedsuser
       POSTGRES_PASSWORD: devtedspass
