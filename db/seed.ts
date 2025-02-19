@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import sampleData from './sample-data';
 import { hash } from '@/lib/encrypt';
 
+
 async function main() {
   const prisma = new PrismaClient();
   await prisma.product.deleteMany();
@@ -23,6 +24,7 @@ async function main() {
     );
   }
   await prisma.user.createMany({ data: users });
+
 
   console.log('Database seeded successfully!');
 }
