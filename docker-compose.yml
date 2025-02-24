@@ -1,0 +1,70 @@
+services:
+
+  app:
+    container_name: "app_srv"
+    build: .
+    command: tail -f /dev/null 
+    volumes:
+      - ./:/workspace:cached
+
+  pgadmin:
+    image: dpage/pgadmin4:8.9
+    restart: always
+    container_name: "pgadmin_srv"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: devteds@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: devteds      
+      PGADMIN_CONFIG_WTF_CSRF_HEADERS: '["Referer", "Origin"]'
+      PGADMIN_CONFIG_WTF_CSRF_ENABLED: 'False'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - 5050:80
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13.18
+    restart: always      
+    container_name: "postgredb_srv"    
+    environment: 
+      POSTGRES_USER: devtedsuser
+      POSTGRES_PASSWORD: devtedspass
+      POSTGRES_DB: demodb
+    volumes:                 
+      - pg-data:/var/lib/postgresql/data
+
+    # POSTGRES_HOST_AUTH_METHOD: "trust"
+    # PGHBA_CONF_CONTENT: |
+    #   host    all             all             0.0.0.0/0               md5    
+    # - ./pgdata:/var/lib/postgresql/data
+      # host    all             all             0.0.0.0/0               trust
+
+  postgres:
+    image: "postgres:15.2-alpine"
+    container_name: "postgredb2_srv"    
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+      
+  pg_proxy:
+    image: ghcr.io/neondatabase/wsproxy:latest
+    container_name: "pgproxy_srv"  
+    environment:
+      APPEND_PORT: "postgres:5432"
+      ALLOW_ADDR_REGEX: ".*"
+      LOG_TRAFFIC: "true"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:80"
+    depends_on:
+      - postgres
+
+volumes:
+  pgadmin-data:
+  pg-data:

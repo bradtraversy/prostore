@@ -37,6 +37,11 @@ This project is from my **Next.js Ecommerce course**
 - [License](#license)
 <!--toc:end-->
 
+
+https://gal.hagever.com/posts/running-vercel-postgres-locally
+
+
+
 ## Features
 
 - Next Auth authentication
@@ -55,19 +60,42 @@ This project is from my **Next.js Ecommerce course**
 - Dark/Light mode
 - Much more
 
-## Usage
+## Install npm
+```bash
+sudo apt update
+
+sudo apt install npm -y 
+
+sudo apt-get install iputils-ping -y 
+
+pinga 9c52ed4ee35
+```
+
+
 
 ### Install Dependencies
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 Note: Some dependencies may have not yet been upadated to support React 19. If you get any errors about depencency compatability, run the following:
 
 ```bash
-npm install --legacy-peer-deps
+npm install 
 ```
+
+## docker config & pgAdmin config
+```bash
+https://medium.com/@marvinjungre/get-postgresql-and-pgadmin-4-up-and-running-with-docker-4a8d81048aea
+```
+
+
+npm install 
+
+http://127.0.0.1:5050/browser/
+localhost : db 
+
 
 ### Environment Variables
 
@@ -80,7 +108,9 @@ Sign up for a free PostgreSQL database through Vercel. Log into Vercel and click
 **Example:**
 
 ```
-DATABASE_URL="postgresql://username:password@host:port/dbname"
+DATABASE_URL="postgresql://username:password@host:port/prostoredb"
+DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:5432/prostoredb"
+DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:6432/demodb"
 ```
 
 #### Next Auth Secret
@@ -94,7 +124,7 @@ openssl rand -base64 32
 **Example:**
 
 ```
-NEXTAUTH_SECRET="xmVpackzg9sdkEPzJsdGse3dskUY+4ni2quxvoK6Go="
+NEXTAUTH_SECRET="sSMx5DpKJ0Az21c6H+kSnVDeU+nSr6czVFE7DA9JJzw="
 ```
 
 #### PayPal Client ID and Secret
@@ -141,7 +171,61 @@ Sign up for an account at https://resend.io/ and get the API key.
 RESEND_API_KEY="re_ZnhUfrjR_QD2cDqdee3iYCrkfvPYFCYiXm"
 ```
 
+### setup database
+DATABASE_URL="postgresql://devtedsuser:devtedspass@a9c52ed4ee35:5432/demodb"
+ENCRYPTION_KEY="test"
+export DATABASE_URL
+export ENCRYPTION_KEY
+npx prisma generate
+npx prisma migrate dev
+npx tsx ./db/seed
+
 ### Run
+sudo apt install pgbouncer
+
+
+
+export DATABASE_URL="postgresql://devtedsuser:devtedspass@localhost:6432/demodb"
+ 
+
+# add "[databases]
+# mydb = host=a9c52ed4ee35 port=5432 dbname=demodb user=devtedsuser password=devtedspass
+
+# vi /etc/pgbouncer/pgbouncer.ini
+# [databases]
+# demodb = host=a9c52ed4ee35 port=5432 dbname=demodb
+# ;; disable, allow, require, verify-ca, verify-full
+# client_tls_sslmode = disable
+# log_connections = 1
+# log_disconnections = 1
+# log_pooler_errors = 1
+# verbose=3
+# ;; IP address or * which means all IPs
+# listen_addr = localhost
+# listen_port = 6432 
+
+
+export PGPASSWORD='devtedspass'
+psql -h a9c52ed4ee35 -p 5432 -U devtedsuser -d demodb -c 'SELECT * FROM public."User"'
+
+service pgbouncer stop
+service pgbouncer start
+
+
+echo '"devtedsuser" "devtedspass"' > /etc/pgbouncer/userlist.txt
+psql -h localhost -p 6432 -U "devtedsuser" -d "demodb" -c 'SELECT * FROM public."User"'
+cat /var/log/postgresql/pgbouncer.log
+
+
+export ENCRYPTION_KEY="test"
+export DATABASE_URL="postgres://postgres:postgres@a9c52ed4ee35:5432/postgres"
+npx prisma generate
+npx prisma migrate dev
+npx tsx ./db/seed
+
+NEXTAUTH_SECRET="sSMx5DpKJ0Az21c6H+kSnVDeU+nSr6czVFE7DA9JJzw="
+export NEXTAUTH_SECRET
+
 
 ```bash
 
@@ -158,14 +242,11 @@ npm start
 npm run export
 ```
 
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Prisma Studio
 
-To open Prisma Studio, run the following command:
-
-```bash
-npx prisma studio
 ```
 
 ## Seed Database
@@ -173,8 +254,20 @@ npx prisma studio
 To seed the database with sample data, run the following command:
 
 ```bash
+
+
+
+export DATABASE_URL
 npx tsx ./db/seed
+
 ```
+
+## Prisma Studio
+
+To open Prisma Studio, run the following command:
+
+```bash
+npx prisma studio
 
 ## Demo
 
