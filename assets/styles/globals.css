@@ -1,34 +1,93 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@layer utilities {
-  .wrapper {
-    @apply max-w-7xl lg:mx-auto p-5 md:px-10 w-full;
-  }
+@plugin 'tailwindcss-animate';
 
-  .flex-start {
-    @apply flex justify-start items-center;
-  }
-  .flex-center {
-    @apply flex justify-center items-center;
-  }
+@custom-variant dark (&:is(.dark *));
 
-  .flex-between {
-    @apply flex justify-between items-center;
-  }
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
 
-  .h1-bold {
-    @apply font-bold text-3xl lg:text-4xl;
-  }
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
 
-  .h2-bold {
-    @apply font-bold text-2xl lg:text-3xl;
-  }
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
 
-  .h3-bold {
-    @apply font-bold text-xl lg:text-2xl;
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
   }
+}
+
+@utility wrapper {
+  @apply max-w-7xl lg:mx-auto p-5 md:px-10 w-full;
+}
+
+@utility flex-start {
+  @apply flex justify-start items-center;
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
+}
+
+@utility h1-bold {
+  @apply font-bold text-3xl lg:text-4xl;
+}
+
+@utility h2-bold {
+  @apply font-bold text-2xl lg:text-3xl;
+}
+
+@utility h3-bold {
+  @apply font-bold text-xl lg:text-2xl;
 }
 
 @layer base {
