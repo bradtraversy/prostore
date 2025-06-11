@@ -6,25 +6,22 @@ import { Label } from '@/components/ui/label';
 import { signInDefaultValues } from '@/lib/constants';
 import Link from 'next/link';
 import { useActionState } from 'react';
-import { useFormStatus } from 'react-dom';
 import { signInWithCredentials } from '@/lib/actions/user.actions';
 import { useSearchParams } from 'next/navigation';
 
 const CredentialsSignInForm = () => {
-  const [data, action] = useActionState(signInWithCredentials, {
-    success: false,
+  const [data, action, isPending] = useActionState(signInWithCredentials, {
     message: '',
+    success: false,
   });
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const SignInButton = () => {
-    const { pending } = useFormStatus();
-
     return (
-      <Button disabled={pending} className='w-full' variant='default'>
-        {pending ? 'Signing In...' : 'Sign In'}
+      <Button disabled={isPending} className='w-full' variant='default'>
+        {isPending ? 'Signing In...' : 'Sign In'}
       </Button>
     );
   };
