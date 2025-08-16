@@ -143,7 +143,7 @@ const OrderDetailsTable = ({
     <>
       <h1 className='py-4 text-2xl'>Order {formatId(id)}</h1>
       <div className='grid md:grid-cols-3 md:gap-5'>
-        <div className='col-span-2 space-4-y overlow-x-auto'>
+        <div className='col-span-2 space-y-4 overlow-x-auto'>
           <Card>
             <CardContent className='p-4 gap-4'>
               <h2 className='text-xl pb-4'>Payment Method</h2>
@@ -157,7 +157,7 @@ const OrderDetailsTable = ({
               )}
             </CardContent>
           </Card>
-          <Card className='my-2'>
+          <Card>
             <CardContent className='p-4 gap-4'>
               <h2 className='text-xl pb-4'>Shipping Address</h2>
               <p>{shippingAddress.fullName}</p>
